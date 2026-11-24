@@ -1,7 +1,7 @@
 ﻿/* Kibukamusoke Family Archive: offline support. The archive is cached exactly as published
    (still encrypted), so it opens without internet but still needs the password.
    Bump VERSION whenever the site is rebuilt and republished. */
-const VERSION = 'kf-v5';
+const VERSION = 'kf-v6';
 const CORE = [
   './',
   './index.html',
