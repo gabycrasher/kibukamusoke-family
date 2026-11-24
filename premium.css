@@ -1,0 +1,1028 @@
+/*
+ * Kibukamusoke Family Archive — premium presentation layer
+ * --------------------------------------------------------
+ * This file deliberately sits after site.css and features.css. It refines the
+ * visual system without changing the archive data, encryption or core tools.
+ */
+
+:root {
+  --museum-green: #0b2119;
+  --museum-green-2: #14382a;
+  --museum-green-3: #235d46;
+  --museum-gold: #d3ad5f;
+  --museum-gold-light: #f1ddaa;
+  --museum-paper: #f5f1e8;
+  --museum-white: #fffdf8;
+  --museum-ink: #17231e;
+  --museum-muted: #68736d;
+  --museum-border: rgba(19, 56, 42, .13);
+  --museum-shadow: 0 24px 70px rgba(10, 33, 25, .13);
+  --museum-shadow-soft: 0 12px 35px rgba(10, 33, 25, .08);
+  --museum-radius: 28px;
+}
+
+html {
+  scroll-padding-top: 92px;
+}
+
+body {
+  background:
+    radial-gradient(circle at 0 0, rgba(211, 173, 95, .08), transparent 24rem),
+    var(--museum-paper);
+  color: var(--museum-ink);
+}
+
+/* ---------- Shared typography and controls ---------- */
+.eyebrow {
+  color: var(--museum-green-3);
+  letter-spacing: .26em;
+}
+
+.section-title,
+.archive-dashboard h2 {
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+.section-title em,
+.archive-dashboard h2 em {
+  color: var(--museum-green-3);
+}
+
+.btn {
+  min-height: 52px;
+  border-radius: 999px;
+  box-shadow: 0 12px 30px rgba(200, 164, 93, .18);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), background .3s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px rgba(200, 164, 93, .27);
+}
+
+.chip,
+.view-switch,
+.search,
+.rel-form input,
+.cal-tools button {
+  border-color: var(--museum-border);
+}
+
+/* ---------- Password gate ---------- */
+.gate::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .16;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 90 90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+}
+
+.gate-card {
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border: 1px solid rgba(241, 221, 170, .18);
+  border-radius: 32px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02));
+  box-shadow: 0 35px 100px rgba(0, 0, 0, .3);
+  backdrop-filter: blur(18px);
+}
+
+/* ---------- Navigation ---------- */
+.nav {
+  height: 82px;
+  padding-inline: clamp(1rem, 4vw, 4.5rem);
+  border-bottom: 1px solid rgba(241, 221, 170, .12);
+  background: rgba(11, 33, 25, .86);
+  box-shadow: 0 12px 35px rgba(4, 20, 14, .12);
+  backdrop-filter: blur(18px) saturate(130%);
+}
+
+.nav-brand span {
+  letter-spacing: .08em;
+}
+
+.nav-links a {
+  position: relative;
+  padding: .65rem .15rem;
+  color: rgba(255, 253, 248, .74);
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 2px;
+  height: 2px;
+  background: var(--museum-gold);
+  transition: right .3s var(--ease);
+}
+
+.nav-links a:hover,
+.nav-links a.is-active {
+  color: #fff;
+}
+
+.nav-links a:hover::after,
+.nav-links a.is-active::after {
+  right: 0;
+}
+
+.nav-search {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  min-height: 42px;
+  padding: .55rem .75rem;
+  border: 1px solid rgba(241, 221, 170, .2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .06);
+  color: rgba(255, 255, 255, .78);
+  cursor: pointer;
+}
+
+.nav-search svg,
+.dashboard-search svg,
+.archive-finder svg,
+.command-top > svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+kbd {
+  min-width: 24px;
+  padding: .12rem .35rem;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  font: 600 .7rem var(--sans);
+  text-align: center;
+  opacity: .6;
+}
+
+/* ---------- Editorial hero ---------- */
+.hero {
+  min-height: min(900px, 100svh);
+  padding-top: clamp(8rem, 14vh, 11rem);
+  background:
+    linear-gradient(120deg, rgba(7, 25, 18, .98) 0%, rgba(11, 33, 25, .94) 46%, rgba(24, 70, 51, .8) 100%),
+    var(--museum-green);
+  isolation: isolate;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .22;
+  background-image:
+    linear-gradient(rgba(241, 221, 170, .11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(241, 221, 170, .11) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(90deg, #000, transparent 72%);
+}
+
+.hero-copy {
+  max-width: 760px;
+}
+
+.hero-title {
+  max-width: 10ch;
+  font-size: clamp(4rem, 8.5vw, 8.4rem);
+  letter-spacing: -.055em;
+  text-wrap: balance;
+}
+
+.hero-title span {
+  display: block;
+  margin-bottom: .2rem;
+  font: 600 .12em var(--caps);
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--museum-gold);
+}
+
+.hero-title em {
+  color: var(--museum-gold-light);
+}
+
+.hero-lead {
+  max-width: 58ch;
+  font-size: clamp(1rem, 1.4vw, 1.18rem);
+  color: rgba(255, 253, 248, .72);
+}
+
+.hero-portrait {
+  border-radius: 46% 46% 28px 28px;
+  box-shadow: 0 35px 100px rgba(0, 0, 0, .38);
+}
+
+.portrait-frame {
+  border-radius: inherit;
+}
+
+.hero-stats {
+  border: 1px solid rgba(241, 221, 170, .13);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, .055);
+  backdrop-filter: blur(14px);
+}
+
+.hero-stats > div:not(:last-child) {
+  border-right-color: rgba(241, 221, 170, .12);
+}
+
+/* ---------- Archive dashboard ---------- */
+.archive-dashboard {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(260px, .82fr) minmax(0, 1.4fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  padding: clamp(4.5rem, 8vw, 8rem) var(--pad);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 8% 0, rgba(35, 93, 70, .12), transparent 31rem),
+    var(--museum-white);
+}
+
+.archive-dashboard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .48;
+  background-image: radial-gradient(rgba(20, 56, 42, .19) .7px, transparent .7px);
+  background-size: 18px 18px;
+  mask-image: linear-gradient(90deg, transparent, #000 25%, transparent 80%);
+}
+
+.dashboard-intro h2 {
+  max-width: 9ch;
+  margin: .7rem 0 1rem;
+  font: 500 clamp(2.5rem, 5vw, 4.8rem)/.98 var(--display);
+}
+
+.dashboard-intro > p:not(.eyebrow) {
+  max-width: 48ch;
+  color: var(--museum-muted);
+}
+
+.dashboard-search {
+  width: min(100%, 520px);
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: .9rem;
+  padding: .9rem 1rem;
+  border: 1px solid var(--museum-border);
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: var(--museum-shadow-soft);
+  text-align: left;
+  cursor: pointer;
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+
+.dashboard-search:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--museum-shadow);
+}
+
+.dashboard-search svg {
+  color: var(--museum-green-3);
+}
+
+.dashboard-search span,
+.dashboard-search small {
+  display: block;
+}
+
+.dashboard-search small {
+  margin-top: .15rem;
+  color: var(--museum-muted);
+  font-size: .78rem;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.dashboard-card {
+  position: relative;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(1.3rem, 2vw, 1.8rem);
+  overflow: hidden;
+  border: 1px solid var(--museum-border);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, .88);
+  box-shadow: var(--museum-shadow-soft);
+  color: inherit;
+  text-decoration: none;
+  transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s;
+}
+
+.dashboard-card::after {
+  content: "";
+  position: absolute;
+  right: -35px;
+  bottom: -48px;
+  width: 150px;
+  height: 150px;
+  border: 1px solid rgba(211, 173, 95, .25);
+  border-radius: 50%;
+  box-shadow: 0 0 0 22px rgba(211, 173, 95, .055), 0 0 0 44px rgba(211, 173, 95, .03);
+}
+
+a.dashboard-card:hover {
+  z-index: 1;
+  transform: translateY(-6px) rotate(-.35deg);
+  border-color: rgba(211, 173, 95, .5);
+  box-shadow: var(--museum-shadow);
+}
+
+.dashboard-card-saved {
+  grid-column: 1 / -1;
+  min-height: 180px;
+  background: linear-gradient(125deg, var(--museum-green) 0%, #173f2f 100%);
+  color: var(--museum-white);
+}
+
+.dashboard-card-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  margin-bottom: auto;
+  border-radius: 50%;
+  background: rgba(35, 93, 70, .1);
+  color: var(--museum-green-3);
+}
+
+.dashboard-card-saved .dashboard-card-icon {
+  background: rgba(255, 255, 255, .1);
+  color: var(--museum-gold-light);
+}
+
+.dashboard-card-icon svg {
+  width: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+.dashboard-label {
+  margin: 1.4rem 0 .3rem;
+  font: 700 .66rem var(--caps);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--museum-green-3);
+}
+
+.dashboard-card-saved .dashboard-label {
+  color: var(--museum-gold-light);
+}
+
+.dashboard-card strong {
+  position: relative;
+  z-index: 1;
+  font: 600 clamp(1.35rem, 2.3vw, 1.8rem)/1.05 var(--display);
+}
+
+.dashboard-card small,
+.favourites-list p {
+  position: relative;
+  z-index: 1;
+  margin-top: .35rem;
+  color: var(--museum-muted);
+}
+
+.dashboard-card-saved .favourites-list p {
+  color: rgba(255, 255, 255, .65);
+}
+
+.favourites-list {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+}
+
+.favourite-people {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+}
+
+.favourites-list button,
+.drawer-favourite {
+  border: 1px solid rgba(211, 173, 95, .35);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .08);
+  color: inherit;
+  cursor: pointer;
+}
+
+.favourites-list button {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  max-width: 100%;
+  padding: .45rem .75rem .45rem .45rem;
+}
+
+.favourites-list button span {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .12);
+  color: var(--museum-gold-light);
+  font-size: .66rem;
+}
+
+.favourites-list button b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawer-favourite {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 1rem;
+  background: var(--museum-green);
+  color: #fff;
+}
+
+.chapter-nav {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: .6rem;
+  border-block: 1px solid var(--museum-border);
+}
+
+.chapter-nav a {
+  position: relative;
+  padding: 1.15rem 1.2rem;
+  text-decoration: none;
+  transition: background .3s;
+}
+
+.chapter-nav a + a {
+  border-left: 1px solid var(--museum-border);
+}
+
+.chapter-nav a:hover {
+  background: rgba(35, 93, 70, .06);
+}
+
+.chapter-nav span,
+.chapter-nav small {
+  display: block;
+}
+
+.chapter-nav span {
+  font-weight: 750;
+}
+
+.chapter-nav small {
+  margin-top: .15rem;
+  color: var(--museum-muted);
+  font-size: .76rem;
+}
+
+/* ---------- Existing sections, now with more rhythm ---------- */
+.section {
+  padding-block: clamp(5rem, 9vw, 9rem);
+}
+
+.blessing {
+  position: relative;
+  background: var(--museum-green);
+  color: var(--museum-white);
+}
+
+.message,
+.jajja {
+  gap: clamp(2.5rem, 7vw, 7rem);
+}
+
+.message-photo,
+.jajja-portrait {
+  border-radius: var(--museum-radius);
+  box-shadow: var(--museum-shadow);
+}
+
+.lineage {
+  background:
+    radial-gradient(circle at 50% 15%, rgba(211, 173, 95, .12), transparent 32rem),
+    var(--museum-green);
+  color: var(--museum-white);
+}
+
+.lineage .section-title,
+.lineage .prince-chain li span {
+  color: var(--museum-white);
+}
+
+.lineage .lead {
+  color: rgba(255, 253, 248, .72);
+}
+
+.lineage .king {
+  background: rgba(255, 255, 255, .07);
+  border-color: rgba(241, 221, 170, .18);
+}
+
+.lineage .king span {
+  color: rgba(255, 253, 248, .66);
+}
+
+.blessing .blessing-text {
+  color: rgba(255, 253, 248, .9);
+}
+
+.blessing .blessing-note {
+  color: rgba(241, 221, 170, .72);
+}
+
+.blessing .blessing-mark {
+  color: var(--museum-gold);
+}
+
+.tree {
+  background:
+    linear-gradient(180deg, rgba(20, 56, 42, .04), transparent 20rem),
+    var(--museum-paper);
+}
+
+.tree-tools {
+  padding: 1rem;
+  border: 1px solid var(--museum-border);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, .72);
+  box-shadow: var(--museum-shadow-soft);
+  backdrop-filter: blur(10px);
+}
+
+.chart,
+.tree-wrap,
+.rel-form,
+.rel-result,
+.birthdays {
+  border-color: var(--museum-border);
+  border-radius: var(--museum-radius);
+  box-shadow: var(--museum-shadow-soft);
+}
+
+/* The chart keeps its original dark night background (features.css) so the
+   cream names and coloured branches stay readable. */
+.chart {
+  min-height: 660px;
+  overflow: hidden;
+}
+
+.chart.is-immersive {
+  position: fixed;
+  inset: 0;
+  z-index: 1400;
+  min-height: 100vh;
+  border: 0;
+  border-radius: 0;
+}
+
+body.tree-immersive {
+  overflow: hidden;
+}
+
+.immersive-exit {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1450;
+  min-height: 46px;
+  padding-inline: 1rem;
+  border: 1px solid var(--museum-gold);
+  border-radius: 999px;
+  background: var(--museum-green);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: var(--museum-shadow);
+  cursor: pointer;
+}
+
+/* ---------- Command palette and floating finder ---------- */
+.archive-finder {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  min-height: 50px;
+  padding: .65rem .9rem;
+  border: 1px solid rgba(241, 221, 170, .35);
+  border-radius: 999px;
+  background: var(--museum-green);
+  box-shadow: 0 16px 45px rgba(10, 33, 25, .28);
+  color: #fff;
+  cursor: pointer;
+}
+
+.command-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 1800;
+  display: grid;
+  align-items: start;
+  justify-items: center;
+  padding: min(15vh, 9rem) 1rem 1rem;
+  background: rgba(5, 19, 14, .76);
+  backdrop-filter: blur(12px);
+}
+
+body.command-open {
+  overflow: hidden;
+}
+
+.command-panel {
+  width: min(100%, 740px);
+  overflow: hidden;
+  border: 1px solid rgba(241, 221, 170, .25);
+  border-radius: 24px;
+  background: var(--museum-white);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, .38);
+  animation: command-in .35s var(--ease) both;
+}
+
+@keyframes command-in {
+  from { opacity: 0; transform: translateY(-14px) scale(.98); }
+}
+
+.command-top {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: .8rem;
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid var(--museum-border);
+}
+
+.command-top input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.command-top button {
+  padding: .35rem .5rem;
+  border: 1px solid var(--museum-border);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--museum-muted);
+  cursor: pointer;
+}
+
+.command-results {
+  max-height: min(54vh, 480px);
+  padding: .6rem;
+  overflow: auto;
+}
+
+.command-results button,
+.command-result {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .8rem;
+  padding: .85rem .9rem;
+  border: 0;
+  border-radius: 13px;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.command-result-icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(35, 93, 70, .09);
+  color: var(--museum-green-3);
+}
+
+.command-result-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
+.command-result > span:nth-child(2),
+.command-result b,
+.command-result small {
+  display: block;
+  min-width: 0;
+}
+
+.command-result b,
+.command-result small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.command-result em {
+  color: var(--museum-muted);
+  font: italic 500 .78rem var(--display);
+}
+
+.command-results button:hover,
+.command-results button.is-active,
+.command-result:hover,
+.command-result.is-active {
+  background: rgba(35, 93, 70, .09);
+}
+
+.command-results small {
+  color: var(--museum-muted);
+}
+
+.command-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .75rem 1rem;
+  border-top: 1px solid var(--museum-border);
+  color: var(--museum-muted);
+  font-size: .72rem;
+}
+
+.scroll-progress {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 2100;
+  height: 3px;
+  pointer-events: none;
+}
+
+.scroll-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--museum-gold), var(--museum-gold-light));
+  transform-origin: left;
+}
+
+/* The desktop header already contains search, so the floating duplicate is
+   reserved for tablet and phone layouts where it adds real value. */
+@media (min-width: 1101px) {
+  .archive-finder {
+    display: none;
+  }
+}
+
+/* Short laptop screens need a compact, scroll-safe password gate. */
+@media (max-height: 800px) and (min-width: 721px) {
+  .gate {
+    align-items: start;
+    overflow: hidden;
+    padding: 1rem;
+  }
+
+  .gate-card {
+    width: min(100%, 420px);
+    margin: auto;
+    padding: 1.35rem 1.6rem;
+  }
+
+  .gate-crest {
+    width: 60px;
+    height: 60px;
+    margin-bottom: .7rem;
+  }
+
+  .gate-title {
+    margin-top: .35rem;
+    font-size: clamp(2rem, 6vh, 2.55rem);
+  }
+
+  .gate-form {
+    margin-top: 1.1rem;
+  }
+
+  .gate-field input,
+  .gate-btn {
+    height: 50px;
+  }
+
+  .gate-foot {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-height: 560px) and (min-width: 721px) {
+  .gate {
+    overflow-y: auto;
+  }
+}
+
+/* ---------- Tablet and mobile ---------- */
+@media (max-width: 1100px) {
+  .nav-links,
+  .nav-search span,
+  .nav-search kbd {
+    display: none;
+  }
+
+  .nav-search {
+    width: 42px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .archive-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-intro h2 {
+    max-width: 13ch;
+  }
+}
+
+@media (max-width: 720px) {
+  html {
+    scroll-padding-top: 70px;
+  }
+
+  .nav {
+    height: 70px;
+  }
+
+  .nav-brand span {
+    font-size: .8rem;
+  }
+
+  .nav-lock,
+  .nav-search {
+    display: none;
+  }
+
+  .sheet {
+    padding-top: 5.5rem;
+    background: rgba(11, 33, 25, .98);
+  }
+
+  .sheet-search {
+    width: 100%;
+    margin-bottom: .75rem;
+    padding: .85rem 1rem;
+    border: 1px solid rgba(241, 221, 170, .25);
+    border-radius: 13px;
+    background: rgba(255, 255, 255, .06);
+    color: #fff;
+    text-align: left;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 7.5rem;
+  }
+
+  .hero-title {
+    max-width: 8ch;
+    font-size: clamp(3.5rem, 18vw, 5.5rem);
+  }
+
+  .hero-actions {
+    align-items: stretch;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-portrait {
+    border-radius: 180px 180px 24px 24px;
+  }
+
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-stats > div:nth-child(2) {
+    border-right: 0;
+  }
+
+  .dashboard-cards,
+  .chapter-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-card-saved {
+    grid-column: auto;
+  }
+
+  .chapter-nav a + a {
+    border-left: 0;
+    border-top: 1px solid var(--museum-border);
+  }
+
+  .archive-finder {
+    right: .75rem;
+    bottom: .75rem;
+  }
+
+  .archive-finder span,
+  .archive-finder kbd {
+    display: none;
+  }
+
+  .archive-finder {
+    width: 50px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .command-dialog {
+    align-items: end;
+    padding: .75rem;
+  }
+
+  .command-panel {
+    border-radius: 22px;
+  }
+
+  .command-results {
+    max-height: 55vh;
+  }
+
+  .command-result {
+    grid-template-columns: 38px minmax(0, 1fr);
+  }
+
+  .command-result em {
+    display: none;
+  }
+
+  .command-foot span:last-child {
+    display: none;
+  }
+
+  .chart {
+    min-height: 560px;
+  }
+
+  .chart-legend button,
+  .rel-chip,
+  .help-send {
+    min-height: 44px;
+  }
+
+  .help-send {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .immersive-exit {
+    top: .75rem;
+    right: .75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
